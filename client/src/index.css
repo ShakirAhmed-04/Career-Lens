@@ -183,6 +183,18 @@ a {
   box-shadow: 0 14px 34px rgba(15, 23, 42, 0.12);
 }
 
+/* Shared loading/status spin animations (used by ResumeBuilder + VoiceInterview) */
+.spin {
+  animation: app-spin 0.9s linear infinite;
+}
+.spin-slow {
+  animation: app-spin 2s linear infinite;
+}
+@keyframes app-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 /* Mesh gradient background */
 .mesh-bg {
   background:

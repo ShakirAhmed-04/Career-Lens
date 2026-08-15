@@ -20,6 +20,7 @@ export default function Navbar() {
     { to: '/analysis', label: '🔍 Analysis' },
     { to: '/progress', label: '📈 Progress' },
     { to: '/resume-builder', label: '✍️ Resume Builder' },
+    { to: '/interview', label: '🎤 Mock Interview' },
     { to: '/chat', label: '🤖 AI Chat' },
   ]
 

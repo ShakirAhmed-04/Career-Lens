@@ -5,6 +5,10 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const helmet = require('helmet')
 const session = require('express-session')
+// connect-mongo v6 ships dual ESM/CJS bundles; depending on the exact
+// version resolved, `require('connect-mongo')` can return the class
+// directly OR an interop wrapper of the shape { default: MongoStore }.
+// Handle both so this doesn't break on a patch bump.
 const connectMongo = require('connect-mongo')
 const MongoStore = connectMongo.create ? connectMongo : connectMongo.default
 const passport = require('passport')
@@ -79,6 +83,7 @@ app.use('/api/resume', require('./routes/resume'))
 app.use('/api/ai', require('./routes/ai'))
 app.use('/api/chat', require('./routes/chat'))
 app.use('/api/progress', require('./routes/progress'))
+app.use('/api/interview', require('./routes/interview'))
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))

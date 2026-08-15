@@ -1,6 +1,6 @@
 # CareerLens
 
-An AI-powered career platform (MERN stack) with resume upload & AI analysis, an AI chat mentor, a skill-gap roadmap, progress tracking, and an interactive **Resume Builder** that exports both an ATS-friendly and a Simple/styled PDF (auto-fit to 1-2 pages).
+An AI-powered career platform (MERN stack) with resume upload & AI analysis, an AI chat mentor, a skill-gap roadmap, progress tracking, an interactive **Resume Builder** that exports both an ATS-friendly and a Simple/styled PDF (auto-fit to 1-2 pages), and a **Voice Mock Interview** feature that asks questions out loud, listens to spoken answers, and scores them.
 
 ## Project structure
 
@@ -95,6 +95,25 @@ The Resume Builder (`client/src/pages/ResumeBuilder.jsx`) is fully client-side (
 
 Both automatically shrink font size as needed so the export always fits in 1-2 pages.
 
+## Voice Mock Interview
+
+The Voice Mock Interview (`client/src/pages/VoiceInterview.jsx` + `server/routes/interview.js`) walks through:
+
+1. **Setup** — pick a role (defaults to your target role), difficulty (easy/medium/hard), and number of questions (3/5/8).
+2. **Start Interview** — the server asks Gemini for question 1, tailored to the role, difficulty, and your saved skills.
+3. **Question read aloud** — the browser's Speech Synthesis API (`speechSynthesis`) speaks the question.
+4. **Spoken answer captured** — the browser's Speech Recognition API (`SpeechRecognition` / `webkitSpeechRecognition`) transcribes your answer live, with an interim caption shown as you talk, until you click **Submit Answer**.
+5. **AI evaluation** — Gemini scores the transcribed answer (0-10), gives 2-3 sentences of feedback, and lists what worked / what to improve. Minor speech-to-text artifacts (filler words, grammar) are explicitly not penalized.
+6. **Next question** — generated in the same call, aware of every question already asked so it doesn't repeat itself, then read aloud automatically.
+7. **Final report** — after the last question, Gemini produces an overall score, summary, strengths, focus areas, and a recommendation, alongside a full question-by-question breakdown.
+
+Additional details built in:
+- **Manual typing fallback** — if the browser doesn't support the Speech APIs (e.g. Firefox/Safari), or the user just prefers it, a "Type instead" toggle switches to a plain textarea without losing progress.
+- **Mic permission handling** — a blocked/denied microphone shows a clear message and automatically falls back to typing instead of silently failing.
+- **Session history** — every interview (in-progress or completed) is saved to MongoDB (`server/models/Interview.js`); a "Past interviews" view lists them with scores, lets you reopen a full report, or delete a session.
+- **Progress indicator** — a live "Question X of N" progress bar during the interview.
+
 ## Notes / known limitations
 
 - Resume uploads (`server/uploads/`) are stored on local disk. On hosts with ephemeral filesystems (e.g. free tiers that restart often), previously uploaded files may not persist across restarts/deploys — for durability at scale, swap Multer's disk storage for an object store (S3, Cloudinary, etc.).
+- The Speech Recognition API (used for the Voice Mock Interview) is best supported in Chrome/Edge; other browsers automatically fall back to typed answers. It also requires HTTPS (or `localhost`) — this is satisfied automatically on Vercel and in local dev.

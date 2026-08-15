@@ -7,6 +7,7 @@ import Chat from './pages/Chat'
 import Analysis from './pages/Analysis'
 import Progress from './pages/Progress'
 import ResumeBuilder from './pages/ResumeBuilder'
+import VoiceInterview from './pages/VoiceInterview'
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth()
@@ -26,6 +27,7 @@ const AppRoutes = () => (
     <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
     <Route path="/analysis" element={<ProtectedRoute><Analysis /></ProtectedRoute>} />
     <Route path="/progress" element={<ProtectedRoute><Progress /></ProtectedRoute>} />
+    <Route path="/interview" element={<ProtectedRoute><VoiceInterview /></ProtectedRoute>} />
   </Routes>
 )
 

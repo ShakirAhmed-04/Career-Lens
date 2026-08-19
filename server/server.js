@@ -84,6 +84,7 @@ app.use('/api/ai', require('./routes/ai'))
 app.use('/api/chat', require('./routes/chat'))
 app.use('/api/progress', require('./routes/progress'))
 app.use('/api/interview', require('./routes/interview'))
+app.use('/api/market', require('./routes/market'))
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))

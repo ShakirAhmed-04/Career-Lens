@@ -327,6 +327,38 @@ export default function Dashboard() {
           </div>
         </div>
 
+        {/* Market Analytics Card */}
+        <div className="theme-surface card-hover" style={{
+          border: '1px solid rgba(148,163,184,0.18)',
+          borderRadius: 24,
+          padding: 24,
+          backdropFilter: 'blur(20px)',
+          boxShadow: '0 18px 50px rgba(15,23,42,0.1)',
+          marginBottom: 24
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 18, flexWrap: 'wrap' }}>
+            <div style={{ maxWidth: 560 }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '7px 12px', borderRadius: 999, background: 'rgba(84,104,255,0.08)', border: '1px solid rgba(84,104,255,0.18)', color: '#4f46e5', fontSize: 12, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 12 }}>
+                <span>📊</span> Market Analytics
+              </div>
+              <h3 style={{ color: '#0f172a', fontSize: 22, fontWeight: 800, margin: '0 0 8px' }}>See what's actually in demand this week.</h3>
+              <p style={{ color: 'rgba(15,23,42,0.58)', fontSize: 14, lineHeight: 1.7, margin: 0 }}>
+                Live skill demand, top hiring companies, salary ranges, and city-wise role trends from real India job postings.
+              </p>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, minWidth: 220 }}>
+              <button onClick={() => navigate('/market-analytics')} className="interactive" style={{
+                padding: '12px 18px', borderRadius: 14,
+                background: 'linear-gradient(135deg,rgba(84,104,255,0.94),rgba(14,165,233,0.84))',
+                border: '1px solid rgba(84,104,255,0.24)', color: 'white',
+                fontWeight: 800, cursor: 'pointer'
+              }}>
+                View Market Analytics
+              </button>
+            </div>
+          </div>
+        </div>
+
         {/* Progress Card */}
         {totalWeeks > 0 && (
           <div className="card-hover" style={{

@@ -113,6 +113,17 @@ Additional details built in:
 - **Session history** — every interview (in-progress or completed) is saved to MongoDB (`server/models/Interview.js`); a "Past interviews" view lists them with scores, lets you reopen a full report, or delete a session.
 - **Progress indicator** — a live "Question X of N" progress bar during the interview.
 
+## Market Analytics
+
+`client/src/pages/MarketAnalytics.jsx` + `server/routes/market.js` show live India tech-hiring data: skill demand, top hiring companies, salary ranges, city-wise role demand, and rising/falling trending skills.
+
+**A note on the data source:** neither Naukri nor Internshala offer a free public API — the only "APIs" available for them are paid third-party scrapers that violate their Terms of Service. Instead, this uses **[Adzuna's Jobs API](https://developer.adzuna.com)**, which is genuinely free (instant signup, no billing required) and covers India (`in`) with real, live job postings, salaries, and hiring companies.
+
+- `server/services/adzuna.js` — thin wrapper around Adzuna's `search`, `top_companies`, and `histogram` endpoints.
+- `server/models/MarketSnapshot.js` — every ~7 days, the dashboard's first request of the week triggers a fresh pull from Adzuna and stores it as a snapshot in MongoDB.
+- Rising/falling trends are computed for real by comparing the current snapshot to the previous one — not simulated.
+- Requires `ADZUNA_APP_ID` and `ADZUNA_APP_KEY` (see `server/.env.example`) — get a free key at [developer.adzuna.com/signup](https://developer.adzuna.com/signup). Without these set, the dashboard shows a clear "not configured yet" message instead of failing silently.
+
 ## Notes / known limitations
 
 - Resume uploads (`server/uploads/`) are stored on local disk. On hosts with ephemeral filesystems (e.g. free tiers that restart often), previously uploaded files may not persist across restarts/deploys — for durability at scale, swap Multer's disk storage for an object store (S3, Cloudinary, etc.).

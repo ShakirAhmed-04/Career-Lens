@@ -8,6 +8,7 @@ import Analysis from './pages/Analysis'
 import Progress from './pages/Progress'
 import ResumeBuilder from './pages/ResumeBuilder'
 import VoiceInterview from './pages/VoiceInterview'
+import MarketAnalytics from './pages/MarketAnalytics'
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth()
@@ -28,6 +29,7 @@ const AppRoutes = () => (
     <Route path="/analysis" element={<ProtectedRoute><Analysis /></ProtectedRoute>} />
     <Route path="/progress" element={<ProtectedRoute><Progress /></ProtectedRoute>} />
     <Route path="/interview" element={<ProtectedRoute><VoiceInterview /></ProtectedRoute>} />
+    <Route path="/market-analytics" element={<ProtectedRoute><MarketAnalytics /></ProtectedRoute>} />
   </Routes>
 )
 

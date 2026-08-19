@@ -21,6 +21,7 @@ export default function Navbar() {
     { to: '/progress', label: '📈 Progress' },
     { to: '/resume-builder', label: '✍️ Resume Builder' },
     { to: '/interview', label: '🎤 Mock Interview' },
+    { to: '/market-analytics', label: '📊 Market Analytics' },
     { to: '/chat', label: '🤖 AI Chat' },
   ]
 
